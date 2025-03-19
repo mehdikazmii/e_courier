@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1043982178137",
+    "project_id": "ecourier-dc3b2",
+    "storage_bucket": "ecourier-dc3b2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1043982178137:android:55b933b4ce6a7bad261e48",
+        "android_client_info": {
+          "package_name": "com.example.untitled5"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1043982178137-dc83j39a9hfrvjc56v14ajsmnk006lt0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWzssVQSjDBMXxkR2eqvaqUP5H9rh3wes"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1043982178137-dc83j39a9hfrvjc56v14ajsmnk006lt0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,30 @@
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+    
+    // afterEvaluate {
+    //     if (project.hasProperty('android')) {
+    //         android {
+    //             namespace project.group ? "${project.group}" : "com.example.${project.name}"
+    //             if (project.name.contains('firestore')) {
+    //                 namespace "io.flutter.plugins.firebase.firestore"
+    //             }
+    //         }
+    //     }
+    // }
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+
+tasks.register("clean", Delete) {
+    delete rootProject.layout.buildDirectory
+}
