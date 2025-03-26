@@ -50,6 +50,7 @@ dependencies:
   another_stepper: ^1.1.6
   path_provider: ^2.1.5
   file: ^7.0.0
+  google_generative_ai: ^0.4.6
 
 dev_dependencies:
   flutter_test:

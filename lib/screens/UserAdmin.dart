@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:shape_of_view_null_safe/shape_of_view_null_safe.dart';
 import 'package:untitled5/screens/admin_login.dart';
 import 'package:untitled5/screens/login.dart';
+import 'package:untitled5/screens/chatbot_screen.dart';
 import 'package:untitled5/theme/constant.dart';
 import 'package:untitled5/widgets/pressedWidgets.dart';
 
@@ -54,7 +55,7 @@ class UserAdmin extends StatelessWidget {
                         SizedBox(
                           height: size.height * 0.04,
                         ),
-                        Text(
+                        const Text(
                           "ECourier",
                           style: TextStyle(
                               fontSize: 35,
