@@ -104,7 +104,7 @@ class _LoginState extends State<Login> {
   onLogInTap() async {
     if (kDebugMode) {
       if (emailController.text.isEmpty) {
-        emailController.text = 'hello@gmail.com';
+        emailController.text = 'aadil@test.com';
       }
       if (passwordController.text.isEmpty) {
         passwordController.text = '123456';
