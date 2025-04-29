@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:untitled5/helper/constant.dart';
 import 'package:untitled5/theme/constant.dart';
 
 class ChatMessage {
@@ -54,7 +55,7 @@ class ChatbotScreenState extends State<ChatbotScreen> {
       'international': 'Major countries worldwide'
     },
     'contact': {
-      'phone': '03055261182',
+      'phone': aadilContact,
       'email': 'support@ecourier.com',
       'address': '123 Main Street, City, Country'
     }

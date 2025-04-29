@@ -10,45 +10,33 @@ class Splash extends StatefulWidget {
 
   const Splash({Key? key}) : super(key: key);
   @override
-  _SplashState createState() => _SplashState();
+  SplashState createState() => SplashState();
 }
 
-class _SplashState extends State<Splash> {
+class SplashState extends State<Splash> {
   startTime() async {
     var duration = const Duration(seconds: 4);
     return Timer(duration, navigationPage);
   }
 
   void navigationPage() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-    bool value = pref.containsKey('key');
+    final prefs = await SharedPreferences.getInstance();
 
-    if (value == true) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) {
-            return const UserAdmin();
-          },
-        ),
-            (r) => false,
-      );
-    } else {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (BuildContext context) {
-            return const OnBoardingPage();
-          },
-        ),
-            (r) => false,
-      );
-    }
+    // guard against calling context if this State was already disposed
+    if (!mounted) return;
+
+    final next =
+        prefs.containsKey('key') ? const UserAdmin() : const OnBoardingPage();
+
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (_) => next),
+      (r) => false,
+    );
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     startTime();
   }
@@ -56,12 +44,12 @@ class _SplashState extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
+      body: const SizedBox(
         height: double.infinity,
         width: double.infinity,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Image(
               image: AssetImage('assets/ecourierlogo.png'),
               width: 300,
@@ -69,9 +57,12 @@ class _SplashState extends State<Splash> {
           ],
         ),
       ),
-      bottomNavigationBar: SizedBox(height: 100,child: Center(
-        child: loading2(),
-      ),),
+      bottomNavigationBar: SizedBox(
+        height: 100,
+        child: Center(
+          child: loading2(),
+        ),
+      ),
     );
   }
 }

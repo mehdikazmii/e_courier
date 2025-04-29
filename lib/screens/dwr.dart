@@ -78,18 +78,18 @@ class _DrawerOneState extends State<DrawerOne> {
                 const SizedBox(
                   height: 5,
                 ),
-                tileCards('Pick Up', Icons.car_repair, () {
-                  Get.back();
-                  Get.to(const PickUp());
-                }, Colors.blue),
-                tileCards('Track', Icons.track_changes_rounded, () {
-                  Get.back();
-                  Get.to(const Track());
-                }, Colors.red),
-                tileCards('History', Icons.history, () {
-                  Get.back();
-                  Get.to(HistoryPage());
-                }, Colors.orange),
+                // tileCards('Pick Up', Icons.car_repair, () {
+                //   Get.back();
+                //   Get.to(const PickUp());
+                // }, Colors.blue),
+                // tileCards('Track', Icons.track_changes_rounded, () {
+                //   Get.back();
+                //   Get.to(const Track());
+                // }, Colors.red),
+                // tileCards('History', Icons.history, () {
+                //   Get.back();
+                //   Get.to(HistoryPage());
+                // }, Colors.orange),
                 tileCards('Privacy Policy', Icons.privacy_tip_outlined, () {
                   Get.back();
                   Get.to(const Privacy());
