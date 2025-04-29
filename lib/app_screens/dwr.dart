@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shape_of_view_null_safe/shape_of_view_null_safe.dart';
-import 'package:untitled5/screens/about_us.dart';
-import 'package:untitled5/screens/history_page.dart';
-import 'package:untitled5/screens/pickup_schedule.dart';
-import 'package:untitled5/screens/privacyPolicy.dart';
-import 'package:untitled5/screens/track.dart';
+import 'package:untitled5/app_screens/about_us.dart';
+import 'package:untitled5/program/history_page.dart';
+import 'package:untitled5/program/pickup_schedule.dart';
+import 'package:untitled5/app_screens/privacyPolicy.dart';
+import 'package:untitled5/program/track.dart';
 import 'package:untitled5/services/firestore_repositary.dart';
 import 'package:untitled5/theme/constant.dart';
 import 'package:untitled5/widgets/tilewidget.dart';

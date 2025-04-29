@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:untitled5/models/cities_list.dart';
-import 'package:untitled5/screens/home.dart';
+import 'package:untitled5/app_screens/home.dart';
 import 'package:untitled5/services/firestore_repositary.dart';
 import 'package:untitled5/theme/constant.dart';
 import 'package:untitled5/widgets/inputWidget.dart';

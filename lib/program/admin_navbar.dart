@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:untitled5/screens/UserAdmin.dart';
-import 'package:untitled5/screens/admin_home.dart';
-import 'package:untitled5/screens/admin_notification.dart';
+import 'package:untitled5/program/UserAdmin.dart';
+import 'package:untitled5/app_screens/admin_home.dart';
+import 'package:untitled5/program/admin_notification.dart';
 import 'package:untitled5/theme/constant.dart';
 
 class AdminNavBar extends StatefulWidget {
@@ -51,6 +51,7 @@ class _AdminNavBarState extends State<AdminNavBar> {
       ),
     );
   }
+
   getAppBar() {
     return AppBar(
       elevation: 0.0,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shape_of_view_null_safe/shape_of_view_null_safe.dart';
-import 'package:untitled5/screens/admin_login.dart';
-import 'package:untitled5/screens/login.dart';
-import 'package:untitled5/screens/chatbot_screen.dart';
+import 'package:untitled5/app_screens/admin_login.dart';
+import 'package:untitled5/app_screens/login.dart';
+import 'package:untitled5/program/chatbot_screen.dart';
 import 'package:untitled5/theme/constant.dart';
 import 'package:untitled5/widgets/pressedWidgets.dart';
 

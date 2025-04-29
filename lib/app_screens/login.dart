@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:untitled5/screens/home.dart';
+import 'package:untitled5/program/UserAdmin.dart';
+import 'package:untitled5/app_screens/home.dart';
+import 'package:untitled5/app_screens/signup.dart';
 import 'package:untitled5/services/firestore_repositary.dart';
 import 'package:untitled5/services/pref.dart';
 import 'package:untitled5/theme/constant.dart';
@@ -10,30 +13,25 @@ import 'package:untitled5/widgets/loading.dart';
 import 'package:untitled5/widgets/pressedWidgets.dart';
 import 'package:untitled5/widgets/s.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
 
   @override
-  State<SignUp> createState() => _SignUpState();
+  State<Login> createState() => _LoginState();
 }
 
-class _SignUpState extends State<SignUp> {
-  TextEditingController nameController = TextEditingController();
-
+class _LoginState extends State<Login> {
   TextEditingController emailController = TextEditingController();
-
   TextEditingController passwordController = TextEditingController();
 
-  TextEditingController phoneController = TextEditingController();
-
   bool isLoading = false;
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: getBody(context),
-        bottomNavigationBar: getBottomAlreadyHaveAccount(),
+        resizeToAvoidBottomInset: false,
+        bottomNavigationBar: getBottomNotHaveAccount(),
       ),
     );
   }
@@ -56,7 +54,7 @@ class _SignUpState extends State<SignUp> {
             ),
             const Center(
                 child: Text(
-              'Signup',
+              'Login',
               style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.w900,
@@ -65,15 +63,6 @@ class _SignUpState extends State<SignUp> {
             const SizedBox(
               height: 20,
             ),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Name',
-                style: style2,
-              ),
-            ),
-            input('Name', nameController),
-            SizedBox(height: size.height * 0.01),
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
@@ -91,61 +80,16 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
             input('Password', passwordController),
-            SizedBox(height: size.height * 0.01),
-            const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Phone',
-                style: style2,
-              ),
-            ),
-            input('Phone', phoneController),
-            SizedBox(height: size.height * 0.06),
-
+            SizedBox(height: size.height * 0.05),
             isLoading
                 ? loading()
-                : customButton(
-                    'SignUp',
-                    () {
-                      onSignUpTap();
-                    },
-                  ),
+                : customButton('Login', () {
+                    onLogInTap();
+                  }),
           ],
         ),
       ),
     );
-  }
-
-  onSignUpTap() async {
-    if (nameController.text.isEmpty) {
-      S.sSnackBar(message: 'Name Required!');
-      return;
-    }
-    if (!GetUtils.isEmail(emailController.text)) {
-      S.sSnackBar(message: 'Valid Email Required!');
-      return;
-    }
-    if (passwordController.text.length < 6) {
-      S.sSnackBar(message: 'Password must be contain 6 character!');
-      return;
-    }
-    setState(() {
-      isLoading = true;
-    });
-    bool result = await FsRepo.registerUser(
-      nameController.text,
-      emailController.text,
-      passwordController.text,
-      phoneController.text,
-    );
-    if (result) {
-      Pref.setPrefString(Pref.username, emailController.text);
-      Pref.setPrefString(Pref.password, passwordController.text);
-      Get.offAll(const Home());
-    }
-    setState(() {
-      isLoading = false;
-    });
   }
 
   upperLogo() {
@@ -157,26 +101,64 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  getBottomAlreadyHaveAccount() {
+  onLogInTap() async {
+    if (kDebugMode) {
+      if (emailController.text.isEmpty) {
+        emailController.text = 'hello@gmail.com';
+      }
+      if (passwordController.text.isEmpty) {
+        passwordController.text = '123456';
+      }
+    }
+    if (!GetUtils.isEmail(emailController.text)) {
+      S.sSnackBar(message: 'Valid Email Required!');
+      return;
+    }
+    if (passwordController.text.length < 6) {
+      S.sSnackBar(message: 'Password must be contain 6 character!');
+      return;
+    }
+
+    setState(() {
+      isLoading = true;
+    });
+    FsRepo.loggedInUser =
+        await FsRepo.login(emailController.text, passwordController.text);
+    if (FsRepo.loggedInUser != null) {
+      setState(() {
+        isLoading = false;
+      });
+      await Pref.getPref();
+      Pref.setPrefString(Pref.username, emailController.text);
+      Pref.setPrefString(Pref.password, passwordController.text);
+      Get.offAll(const Home());
+    }
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  getBottomNotHaveAccount() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 25),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            'Already have an Account! ',
+            'Don\'t have an account! ',
             style: style3,
           ),
           InkWell(
-              onTap: () {
-                Get.back();
-              },
-              splashColor: secondaryColor,
-              borderRadius: BorderRadius.circular(15),
-              child: Text(
-                'Login',
-                style: style1.copyWith(fontSize: 16, color: secondaryColor),
-              )),
+            onTap: () {
+              Get.to(const SignUp());
+            },
+            splashColor: secondaryColor,
+            borderRadius: BorderRadius.circular(15),
+            child: Text(
+              'SignUp',
+              style: style1.copyWith(fontSize: 16, color: secondaryColor),
+            ),
+          ),
         ],
       ),
     );

@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:untitled5/main.dart';
-import 'package:untitled5/screens/UserAdmin.dart';
+import 'package:untitled5/program/UserAdmin.dart';
 import 'package:untitled5/services/pref.dart';
 import 'package:untitled5/widgets/s.dart';
 

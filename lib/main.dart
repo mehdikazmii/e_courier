@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:untitled5/screens/splash.dart';
+import 'package:untitled5/app_screens/splash.dart';
 import 'package:untitled5/services/pref.dart';
 
 void main() async {
@@ -33,7 +33,6 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           textTheme: GoogleFonts.questrialTextTheme()),
       home: const Splash(),
-
     );
   }
 }

@@ -1,10 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:untitled5/screens/UserAdmin.dart';
-import 'package:untitled5/screens/home.dart';
-import 'package:untitled5/screens/signup.dart';
+import 'package:untitled5/app_screens/home.dart';
 import 'package:untitled5/services/firestore_repositary.dart';
 import 'package:untitled5/services/pref.dart';
 import 'package:untitled5/theme/constant.dart';
@@ -13,25 +10,30 @@ import 'package:untitled5/widgets/loading.dart';
 import 'package:untitled5/widgets/pressedWidgets.dart';
 import 'package:untitled5/widgets/s.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class SignUp extends StatefulWidget {
+  const SignUp({Key? key}) : super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _LoginState extends State<Login> {
+class _SignUpState extends State<SignUp> {
+  TextEditingController nameController = TextEditingController();
+
   TextEditingController emailController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
 
+  TextEditingController phoneController = TextEditingController();
+
   bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: getBody(context),
-        resizeToAvoidBottomInset: false,
-        bottomNavigationBar: getBottomNotHaveAccount(),
+        bottomNavigationBar: getBottomAlreadyHaveAccount(),
       ),
     );
   }
@@ -54,7 +56,7 @@ class _LoginState extends State<Login> {
             ),
             const Center(
                 child: Text(
-              'Login',
+              'Signup',
               style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.w900,
@@ -63,6 +65,15 @@ class _LoginState extends State<Login> {
             const SizedBox(
               height: 20,
             ),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                'Name',
+                style: style2,
+              ),
+            ),
+            input('Name', nameController),
+            SizedBox(height: size.height * 0.01),
             const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
@@ -80,16 +91,60 @@ class _LoginState extends State<Login> {
               ),
             ),
             input('Password', passwordController),
-            SizedBox(height: size.height * 0.05),
+            SizedBox(height: size.height * 0.01),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                'Phone',
+                style: style2,
+              ),
+            ),
+            input('Phone', phoneController),
+            SizedBox(height: size.height * 0.06),
             isLoading
                 ? loading()
-                : customButton('Login', () {
-                    onLogInTap();
-                  }),
+                : customButton(
+                    'SignUp',
+                    () {
+                      onSignUpTap();
+                    },
+                  ),
           ],
         ),
       ),
     );
+  }
+
+  onSignUpTap() async {
+    if (nameController.text.isEmpty) {
+      S.sSnackBar(message: 'Name Required!');
+      return;
+    }
+    if (!GetUtils.isEmail(emailController.text)) {
+      S.sSnackBar(message: 'Valid Email Required!');
+      return;
+    }
+    if (passwordController.text.length < 6) {
+      S.sSnackBar(message: 'Password must be contain 6 character!');
+      return;
+    }
+    setState(() {
+      isLoading = true;
+    });
+    bool result = await FsRepo.registerUser(
+      nameController.text,
+      emailController.text,
+      passwordController.text,
+      phoneController.text,
+    );
+    if (result) {
+      Pref.setPrefString(Pref.username, emailController.text);
+      Pref.setPrefString(Pref.password, passwordController.text);
+      Get.offAll(const Home());
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   upperLogo() {
@@ -101,64 +156,26 @@ class _LoginState extends State<Login> {
     );
   }
 
-  onLogInTap() async {
-    if (kDebugMode) {
-      if (emailController.text.isEmpty) {
-        emailController.text = 'hello@gmail.com';
-      }
-      if (passwordController.text.isEmpty) {
-        passwordController.text = '123456';
-      }
-    }
-    if (!GetUtils.isEmail(emailController.text)) {
-      S.sSnackBar(message: 'Valid Email Required!');
-      return;
-    }
-    if (passwordController.text.length < 6) {
-      S.sSnackBar(message: 'Password must be contain 6 character!');
-      return;
-    }
-
-    setState(() {
-      isLoading = true;
-    });
-    FsRepo.loggedInUser =
-        await FsRepo.login(emailController.text, passwordController.text);
-    if (FsRepo.loggedInUser != null) {
-      setState(() {
-        isLoading = false;
-      });
-      await Pref.getPref();
-      Pref.setPrefString(Pref.username, emailController.text);
-      Pref.setPrefString(Pref.password, passwordController.text);
-      Get.offAll(const Home());
-    }
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  getBottomNotHaveAccount() {
+  getBottomAlreadyHaveAccount() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 25),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text(
-            'Don\'t have an account! ',
+            'Already have an Account! ',
             style: style3,
           ),
           InkWell(
-            onTap: () {
-              Get.to(const SignUp());
-            },
-            splashColor: secondaryColor,
-            borderRadius: BorderRadius.circular(15),
-            child: Text(
-              'SignUp',
-              style: style1.copyWith(fontSize: 16, color: secondaryColor),
-            ),
-          ),
+              onTap: () {
+                Get.back();
+              },
+              splashColor: secondaryColor,
+              borderRadius: BorderRadius.circular(15),
+              child: Text(
+                'Login',
+                style: style1.copyWith(fontSize: 16, color: secondaryColor),
+              )),
         ],
       ),
     );

@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:untitled5/screens/UserAdmin.dart';
-import 'package:untitled5/screens/onboardings.dart';
+import 'package:untitled5/program/UserAdmin.dart';
+import 'package:untitled5/app_screens/onboardings.dart';
 import 'package:untitled5/widgets/loading.dart';
 
 class Splash extends StatefulWidget {

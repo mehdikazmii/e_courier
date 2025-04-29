@@ -1,9 +1,8 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:untitled5/screens/UserAdmin.dart';
+import 'package:untitled5/program/UserAdmin.dart';
 import 'package:untitled5/theme/constant.dart';
 
 class OnBoardingPage extends StatefulWidget {

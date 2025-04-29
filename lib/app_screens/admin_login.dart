@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:untitled5/screens/admin_home.dart';
-import 'package:untitled5/screens/admin_navbar.dart';
+import 'package:untitled5/app_screens/admin_home.dart';
+import 'package:untitled5/program/admin_navbar.dart';
 import 'package:untitled5/theme/constant.dart';
 import 'package:untitled5/widgets/inputWidget.dart';
 import 'package:untitled5/widgets/loading.dart';
